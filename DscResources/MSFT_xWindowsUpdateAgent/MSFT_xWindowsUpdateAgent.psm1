@@ -607,7 +607,7 @@ function Test-TargetResourceProperties
 
     if($Source -eq 'WSUS')
     {
-        throw 'The WSUS service option is not implemented.'
+        $key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate'        $notImplemented = 'The WSUS service option is not implemented.'        #Check to see if the WSUS source was configured via registry or GPO        if((Get-ItemProperty -Path "$key\AU" -ErrorAction SilentlyContinue).UseWUServer -eq 1)        {            $wsusServer = (Get-ItemProperty -Path $key -ErrorAction SilentlyContinue).WUServer            $wsusReporting = (Get-ItemProperty -Path $key -ErrorAction SilentlyContinue).WUStatusServer            if((($wsusServer -like "http*") -and ($wsusReporting -like "http*")) -eq $false)            {                throw $notImplemented            }        }        else        {            throw $notImplemented        }
     }
 }
 
